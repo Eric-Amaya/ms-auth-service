@@ -40,11 +40,6 @@ export class RegisterRequestDto extends LoginRequestDto {
     public date_incorporation: string;
 }
 
-export class RecoverPasswordRequestDto {
-    @IsEmail()
-    public email: string;
-}
-
 export class ChangePasswordRequestDto {
     @IsEmail()
     public email: string;
