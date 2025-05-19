@@ -26,7 +26,7 @@ export class User extends Document {
     phone: string;
 
     @Prop()
-    birthdate: string;
+    birthdate: Date;
 
     @Prop()
     area: string;
@@ -38,7 +38,7 @@ export class User extends Document {
     role: string;
 
     @Prop()
-    date_incorporation: string;
+    date_incorporation: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

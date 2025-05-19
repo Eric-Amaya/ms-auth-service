@@ -25,7 +25,7 @@ export class RegisterRequestDto extends LoginRequestDto {
     public phone: string;
 
     @IsString()
-    public birthdate: string;
+    public birthdate: Date;
 
     @IsString()
     public area: string;
@@ -37,7 +37,7 @@ export class RegisterRequestDto extends LoginRequestDto {
     public role: string;
 
     @IsString()
-    public date_incorporation: string;
+    public date_incorporation: Date;
 }
 
 export class ChangePasswordRequestDto {
