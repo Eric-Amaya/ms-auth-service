@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../schemas/user.schema';
 import { JwtService } from './jwt.service';
+import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class AuthService {
@@ -17,13 +18,13 @@ export class AuthService {
     public async login({email, password}: LoginRequestDto): Promise<string | object> {
         const user = await this.userModel.findOne({ email: email });
         if (!user) {
-            throw new Error('User not found');
+            throw new RpcException('El usuario no existe');
         }
 
         const isPasswordValid: boolean = this.jwtService.isPasswordValid(password, user.password);
 
         if(!isPasswordValid) {
-            throw new Error('Invalid password');
+            throw new RpcException('Contraseña incorrecta');
         }
 
         return { id: user._id, email: user.email, role: user.role };
@@ -32,7 +33,7 @@ export class AuthService {
     public async register(user: RegisterRequestDto): Promise<RegisterRequestDto> {
         const existingUser = await this.userModel.findOne({ email: user.email });
         if (existingUser) {
-            throw new Error('User already exists');
+            throw new RpcException('El usuario ingresado ya se encuentra registrado');
         }
         user.password = this.jwtService.encodePassword(user.password);
         const newUser = new this.userModel(user);
