@@ -9,5 +9,8 @@ async function bootstrap() {
   });
 
   await app.listen();
+  console.log('Microservice is listening');
+  
+
 }
 bootstrap();

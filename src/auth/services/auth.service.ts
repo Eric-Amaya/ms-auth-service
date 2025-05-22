@@ -1,9 +1,12 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ChangePasswordRequestDto, LoginRequestDto, RegisterRequestDto } from '../dto/auth.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../schemas/user.schema';
 import { JwtService } from './jwt.service';
+import { UpdateDocumentDto } from '../dto/update-document.dto';
+import { UserRequestDto } from '../dto/user.dto';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class AuthService {
@@ -62,13 +65,17 @@ export class AuthService {
         return this.userModel.findOne({ email: email });
     }
 
-    public async getUserById(_id: string): Promise<User | null> {
-        return this.userModel.findById(_id); 
+    public async getUserById(_id: string): Promise<UserRequestDto | null> {
+        const user = await this.userModel.findById(_id).lean();
+        if (!user) return null;
+            return plainToInstance(UserRequestDto, user);
     }
 
-    public async getAllUsers(): Promise<User[]> {
-        return this.userModel.find({});
+    
+    public async getAllUsers(): Promise<any[]> {
+        return this.userModel.find().lean();
     }
+
 
     public async updateUser(_id: string, userData: Partial<User>): Promise<User> {
         const user = await this.userModel.findById(_id);
@@ -86,6 +93,26 @@ export class AuthService {
         }
         await user.deleteOne({ _id: _id });
         return 'User deleted successfully'; 
+    }
+    
+   async updateUserDocument(userId: string, document: UpdateDocumentDto): Promise<User> {
+         const user = await this.userModel.findById(userId);
+         if (!user) throw new NotFoundException('Usuario no encontrado');
+
+         const index = user.requiredDocuments.findIndex(doc => doc.name === document.name);
+         if (index === -1) throw new BadRequestException('Documento no reconocido');
+
+         // Convertir string a Date si viene como string
+         const docToUpdate = {
+            ...user.requiredDocuments[index],
+            ...document,
+            expirationDate: document.expirationDate
+            ? new Date(document.expirationDate)
+            : undefined,
+    };
+
+     user.requiredDocuments[index] = docToUpdate;
+         return user.save();
     }
 
 
