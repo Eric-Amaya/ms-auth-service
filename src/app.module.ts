@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { ActivitiesModule } from './activities/activities.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { AuthModule } from './auth/auth.module';
         uri: config.get<string>('MONGODB_URI', { infer: true }),
       }),
     }),
-    AuthModule
+    AuthModule,
+    ActivitiesModule
   ],
   controllers: [AppController],
   providers: [AppService],
