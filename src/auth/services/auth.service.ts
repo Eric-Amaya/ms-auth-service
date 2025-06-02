@@ -109,6 +109,9 @@ export class AuthService {
             expirationDate: document.expirationDate
             ? new Date(document.expirationDate)
             : undefined,
+            createdAt: document.createdAt
+            ? (typeof document.createdAt === 'string' ? new Date(document.createdAt) : document.createdAt)
+            : user.requiredDocuments[index].createdAt,
     };
 
      user.requiredDocuments[index] = docToUpdate;

@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Role } from '../enum/role.enum';
 
-@Schema({ _id: false })
+@Schema({ _id: true }) 
 export class RequiredDocument {
   @Prop({ required: true })
   name: string;
@@ -15,6 +15,9 @@ export class RequiredDocument {
 
   @Prop({ default: false })
   notApplicable?: boolean;
+
+  @Prop()
+  createdAt?: Date; // opcional si quieres registrar cuándo se agregó
 }
 
 export const RequiredDocumentSchema = SchemaFactory.createForClass(RequiredDocument);
@@ -59,9 +62,11 @@ export class User extends Document {
 
   @Prop({ type: [RequiredDocumentSchema], default: [
     { name: 'CV' },
+    { name: 'CV Ingles'},
     { name: 'GCP' },
     { name: 'Certificado de Título' },
-    { name: 'IATA' }
+    { name: 'IATA' },
+    { name: 'Certificado de Prestadores de Salud' },
   ]})
   requiredDocuments: RequiredDocument[];
 }

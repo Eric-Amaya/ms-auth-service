@@ -1,11 +1,12 @@
 export enum Role {
-  ADMIN = 'admin',
-  INVESTIGADOR = 'investigador',
-  COORDINADOR = 'coordinador',
-  ENFERMERIA = 'enfermeria',
-  DATAENTRY = 'dataentry',
-  REGULATORIO = 'regulatorio',
-  VIEWER = 'viewer',
+  ADMIN = 'Admin',
+  INVESTIGADOR = 'Investigador',
+  COORDINADOR = 'Coordinador',
+  ENFERMERIA = 'Enfermeria',
+  DATAENTRY = 'Data Entry',
+  REGULATORIO = 'Regulatorio',
+  Tens = 'Tens',
+  VIEWER = 'Viewer',
 }
 
 export enum RolEquipo {
@@ -13,6 +14,7 @@ export enum RolEquipo {
   SubInvestigador = 'SubInvestigador',// Sub Investigador del estudio el PY 
   investigadorPrincipal = 'Investigador Principal', // Investigador Principal del estudio el PY
   AsistenteInvestigador = 'Asistente de Investigador', // Asistente de Investigador del estudio el PY , puede utilizarse para el equipo de investigacion
+  DirectorEjecutivo = 'Director Ejecutivo', // Director Ejecutivo del centro , esta persona en general es la que se encarga de la parte ejecutiva del centro y de los estudios que se realizan en el centro
   DirectorCalidad = 'Director de Calidad', // Director de Calidad del centro , esta persona en general es la que se encarga de la calidad del centro y de los estudios que se realizan en el centro
   Enfermero = 'Enfermero', // Enfermero del centro , esta persona en general es la que se encarga de la enfermería del centro y de los estudios que se realizan en el centro
   JefaturaTens = 'Jefatura Tens', // Jefatura de Tens del centro , esta persona en general es la que se encarga de la jefatura de los tens del centro y de los estudios que se realizan en el centro
@@ -27,6 +29,6 @@ export enum RolEquipo {
   DataEntry = 'Data Entry', // Data Entry del centro , esta persona en general es la que se encarga de la entrada de datos del centro y de los estudios que se realizan en el centro
   Tens = 'Tens', // Tens del centro , esta persona en general es la que se encarga de la parte de tens del centro y de los estudios que se realizan en el centro
   Asistente = 'Asistente', // Asistente del centro , esta persona en general es la que se encarga de la parte de asistente del centro y de los estudios que se realizan en el centro
-  Otro = 'otro' // Otro rol que no se encuentra en la lista, puede ser utilizado para cualquier otro rol que no se encuentre en la lista
+  Otro = 'Otro' // Otro rol que no se encuentra en la lista, puede ser utilizado para cualquier otro rol que no se encuentre en la lista
   // , esta persona en general es la que se encarga de cualquier otra cosa que no se encuentre en la lista
 }
