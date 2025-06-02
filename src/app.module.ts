@@ -25,3 +25,4 @@ import { ActivitiesModule } from './activities/activities.module';
   providers: [AppService],
 })
 export class AppModule {}
+

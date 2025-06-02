@@ -4,6 +4,7 @@ import { AuthService } from './services/auth.service';
 import { UserRequestDto } from './dto/user.dto';
 import { User } from './schemas/user.schema';
 import { MessagePattern } from '@nestjs/microservices';
+import { UpdateDocumentDto } from './dto/update-document.dto';
 
 @Controller()
 export class AuthController {
@@ -54,4 +55,8 @@ export class AuthController {
     deleteUser(data: { _id: string }): Promise<string> {
       return this.service.deleteUser(data._id);
     }
+  @MessagePattern('update-user-document')
+  updateUserDocument(data: { _id: string; document: UpdateDocumentDto }): Promise<User> {
+    return this.service.updateUserDocument(data._id, data.document);
+}
 }

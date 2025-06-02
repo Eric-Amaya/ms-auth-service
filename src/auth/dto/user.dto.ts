@@ -1,34 +1,90 @@
-import { IsInt, IsString } from "class-validator";
-import { LoginRequestDto } from "./auth.dto";
+import {
+  IsInt,
+  IsString,
+  IsOptional,
+  IsDateString,
+  IsArray,
+  ValidateNested,
+  IsBoolean,
+} from 'class-validator';
+import { Transform, Type, Expose } from 'class-transformer';
+import { LoginRequestDto } from './auth.dto';
+
+export class RequiredDocumentDto {
+  @Expose()
+  @IsString()
+  name: string;
+
+  @Expose()
+  @IsOptional()
+  @IsString()
+  url?: string;
+
+  @Expose()
+  @IsOptional()
+  @IsDateString()
+  @Transform(({ value }) =>
+    value ? value.toISOString().split('T')[0] : undefined
+  )
+  expirationDate?: string;
+
+  @Expose()
+  @IsOptional()
+  @IsBoolean()
+  notApplicable?: boolean;
+
+  @Expose()
+  @IsOptional()
+  @IsString()
+  _id?: string; // Solo si necesitas identificar el documento individualmente
+}
 
 export class UserRequestDto extends LoginRequestDto {
-    @IsString()
-    public name: string;
-    
-    @IsInt()
-    public age: number;
+  @Expose()
+  @IsString()
+  name: string;
 
-    @IsString()
-    public rut: string;
+  @Expose()
+  @IsInt()
+  age: number;
 
-    @IsString()
-    public address: string;
+  @Expose()
+  @IsString()
+  rut: string;
 
-    @IsString()
-    public phone: string;
+  @Expose()
+  @IsString()
+  address: string;
 
-    @IsString()
-    public birthdate: Date;
+  @Expose()
+  @IsString()
+  phone: string;
 
-    @IsString()
-    public area: string;
+  @Expose()
+  @IsString()
+  area: string;
 
-    @IsString()
-    public position: string;
+  @Expose()
+  @IsString()
+  position: string;
 
-    @IsString()
-    public role: string;
+  @Expose()
+  @IsString()
+  role: string;
 
-    @IsString()
-    public date_incorporation: Date;
+  @Expose()
+  @IsString()
+  @Transform(({ value }) => value?.toISOString().split('T')[0])
+  birthdate: string;
+
+  @Expose()
+  @IsString()
+  @Transform(({ value }) => value?.toISOString().split('T')[0])
+  date_incorporation: string;
+
+  @Expose()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => RequiredDocumentDto)
+  requiredDocuments: RequiredDocumentDto[];
 }
