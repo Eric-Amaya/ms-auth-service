@@ -51,8 +51,8 @@ export class User extends Document {
   @Prop()
   position: string;
 
-  @Prop({ default: Role.USER, enum: Role }) 
-  role: string;
+    @Prop({ default: Role.VIEWER, enum: Role}) 
+    role: string;
 
   @Prop()
   date_incorporation: Date;
