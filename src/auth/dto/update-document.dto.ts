@@ -15,4 +15,10 @@ export class UpdateDocumentDto {
   @IsOptional()
   @IsBoolean()
   notApplicable?: boolean;
+
+  @IsOptional()
+  @IsDateString()
+  createdAt?: string; // Optional field to track when the document was created
+
+  
 }
