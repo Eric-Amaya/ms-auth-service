@@ -13,7 +13,7 @@ import { Activity, ActivitySchema } from './schemas/activity.schema';
         name: 'COMMENTS_SERVICE',
         transport: Transport.TCP,
         options: {
-          host: '127.0.0.1',
+          host: 'ms-comments-service',
           port: 3008,
         },
       },
